@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-12-15 02:35:56
+-- 產生時間： 2021-12-15 03:59:54
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 7.4.19
 
@@ -46,6 +46,14 @@ CREATE TABLE `book_list` (
   `name` text COLLATE utf8_unicode_ci NOT NULL COMMENT '書籍名稱',
   `writer` text COLLATE utf8_unicode_ci NOT NULL COMMENT '書籍作者'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 傾印資料表的資料 `book_list`
+--
+
+INSERT INTO `book_list` (`id`, `ISBN`, `name`, `writer`) VALUES
+(1, 123456789, '測試書籍1', '測試作者1'),
+(3, 123456788, '測試書籍2', '測試作者2');
 
 -- --------------------------------------------------------
 
@@ -118,7 +126,7 @@ ALTER TABLE `book_all`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `book_list`
 --
 ALTER TABLE `book_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `rent_record`
