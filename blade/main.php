@@ -1,3 +1,7 @@
+<?php
+
+$book_list = $DB->select("book_list");
+?>
 <div class="container-fluid">
     <div class="row">
 

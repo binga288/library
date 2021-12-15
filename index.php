@@ -2,8 +2,6 @@
 include_once("db.php");
 
 $DB = new DB();
-
-$book_list = $DB->select("book_list");
 ?>
 
 <?php include_once("header.php"); ?>
