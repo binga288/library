@@ -70,7 +70,7 @@ class DB
     public function insert($table, $data)
     {
         $sql = self::$db->query("INSERT `$table` SET" . $this->exarray($data));
-        return self::$db->insert;
+        return self::$db->insert_id;
     }
 
     public function update($rows, $data, $where, $o = "AND")

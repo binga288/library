@@ -1,7 +1,10 @@
 <?php
 
-$book_list = $DB->select("book_list");
+$book_list = $db->select("book_list");
 ?>
+<script>
+    $("title").text("所有書籍")
+</script>
 <div class="container-fluid">
     <div class="row">
 

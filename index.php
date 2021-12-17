@@ -1,7 +1,7 @@
 <?php
 include_once("db.php");
 
-$DB = new DB();
+$db = new DB();
 ?>
 
 <?php include_once("header.php"); ?>
