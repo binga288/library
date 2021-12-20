@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="?page=rent">借閱</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=return">還書</a>
+                    </li>
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

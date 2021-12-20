@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-12-15 03:59:54
+-- 產生時間： 2021-12-20 03:18:08
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 7.4.19
 
@@ -41,19 +41,10 @@ CREATE TABLE `book_all` (
 --
 
 CREATE TABLE `book_list` (
-  `id` int(11) NOT NULL,
   `ISBN` int(11) NOT NULL,
   `name` text COLLATE utf8_unicode_ci NOT NULL COMMENT '書籍名稱',
   `writer` text COLLATE utf8_unicode_ci NOT NULL COMMENT '書籍作者'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- 傾印資料表的資料 `book_list`
---
-
-INSERT INTO `book_list` (`id`, `ISBN`, `name`, `writer`) VALUES
-(1, 123456789, '測試書籍1', '測試作者1'),
-(3, 123456788, '測試書籍2', '測試作者2');
 
 -- --------------------------------------------------------
 
@@ -63,12 +54,66 @@ INSERT INTO `book_list` (`id`, `ISBN`, `name`, `writer`) VALUES
 
 CREATE TABLE `rent_record` (
   `id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL COMMENT '書籍ID',
+  `book_id` int(11) DEFAULT NULL COMMENT '書籍ID',
   `student_id` int(11) NOT NULL COMMENT '借閱人ID',
-  `rent_date` date NOT NULL COMMENT '租借日期',
-  `return_date` date NOT NULL COMMENT '須歸還日期',
-  `type` int(11) NOT NULL COMMENT '是否歸還 0/1'
+  `rent_date` date NOT NULL DEFAULT current_timestamp() COMMENT '租借日期',
+  `return_date` date DEFAULT NULL,
+  `return_date_limit` date DEFAULT NULL COMMENT '須歸還日期',
+  `type` int(11) NOT NULL COMMENT '是否歸還 0/1',
+  `name` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 傾印資料表的資料 `rent_record`
+--
+
+INSERT INTO `rent_record` (`id`, `book_id`, `student_id`, `rent_date`, `return_date`, `return_date_limit`, `type`, `name`) VALUES
+(1, NULL, 16002, '2021-12-17', NULL, NULL, 1, '解決問題：克服困境、突破關卡的思考法和工作術\r\n'),
+(2, NULL, 16011, '2021-12-17', NULL, NULL, 1, '力抗暗黑 Azure資安天使的逆襲'),
+(3, NULL, 16008, '2021-12-17', NULL, NULL, 1, '演算法 技術手冊'),
+(4, NULL, 16012, '2021-12-17', NULL, NULL, 1, '累死你的不是工作，是工作方法：讓GOOGLE、麥肯錫、高盛、哈佛菁英一生受用的46個最強工作術！\r\n'),
+(5, NULL, 16002, '2021-12-17', NULL, NULL, 0, '解決問題：克服困境、突破關卡的思考法和工作術\r\n'),
+(8, NULL, 16010, '2021-12-17', NULL, NULL, 1, '深入淺出C#'),
+(10, NULL, 16001, '2021-12-17', NULL, NULL, 1, '虛擬化與網路儲存技術'),
+(11, NULL, 16003, '2021-12-17', NULL, NULL, 1, '時間的秩序'),
+(14, NULL, 16006, '2021-12-17', NULL, NULL, 1, '人工智慧開法實務使用Swift'),
+(16, NULL, 16005, '2021-12-17', NULL, NULL, 1, '職業駭客的告白'),
+(18, NULL, 16007, '2021-12-17', NULL, NULL, 1, 'MIS一定要懂的網路技術知識'),
+(20, NULL, 16009, '2021-12-17', NULL, NULL, 1, '資安防禦指南'),
+(22, NULL, 16045, '2021-12-17', NULL, NULL, 1, 'Swift學習手冊'),
+(24, NULL, 16004, '2021-12-17', NULL, NULL, 1, '精通 Python：運用簡單的套件進行現代運算'),
+(40, NULL, 16016, '2021-12-17', NULL, NULL, 1, '改變歷史的加密訊息'),
+(41, NULL, 16015, '2021-12-17', NULL, NULL, 1, 'PHP網路爬蟲開發：入門到進階的爬蟲技術指南'),
+(42, NULL, 16014, '2021-12-17', NULL, NULL, 1, '精通機器學習：使用Scikit-Learn, Keras與TensorFlow '),
+(43, NULL, 16017, '2021-12-17', NULL, NULL, 1, '連結世界的100種新技術：跨領域科技改變人類的未來'),
+(44, NULL, 16018, '2021-12-17', NULL, NULL, 1, 'MIS 一定要懂的82個伺服器建置與管理知識'),
+(45, NULL, 16022, '2021-12-17', NULL, NULL, 1, 'Python演算法交易'),
+(46, NULL, 16020, '2021-12-17', NULL, NULL, 1, '圖解TCP/IP網路通訊協定（涵蓋IPv6）'),
+(47, NULL, 16019, '2021-12-17', NULL, NULL, 1, '白話演算法！培養程式設計的邏輯思考'),
+(48, NULL, 16024, '2021-12-17', NULL, NULL, 1, '線上教學的技術：快速上手的12堂必修課'),
+(49, NULL, 16021, '2021-12-17', NULL, NULL, 1, 'iOS App程式開發實務攻略：快速精通iOS 14程式設計'),
+(50, NULL, 16027, '2021-12-17', NULL, NULL, 1, '改變世界的九大演算法: 讓今日電腦無所不能的最強概念'),
+(51, NULL, 16026, '2021-12-17', NULL, NULL, 1, '抖音：短影音、演算法、年輕化，世界最有價值新創公司的成功秘密'),
+(52, NULL, 16023, '2021-12-17', NULL, NULL, 1, '使用者故事對照：User Story Mapping'),
+(53, NULL, 16025, '2021-12-17', NULL, NULL, 1, '倦怠，為何我們不想工作： 努力不一定能賺更多，我的人生站不起來，又不想跪下，除了躺平還可以怎樣？'),
+(55, NULL, 16034, '2021-12-17', NULL, NULL, 1, 'JavaScript無所不在'),
+(56, NULL, 16032, '2021-12-17', NULL, NULL, 1, '為你自己學Git'),
+(57, NULL, 16029, '2021-12-17', NULL, NULL, 1, '防駭戰士'),
+(58, NULL, 16031, '2021-12-17', NULL, NULL, 1, '網頁應用程式設計：使用 Node 和 Express'),
+(59, NULL, 16028, '2021-12-17', NULL, NULL, 1, '你真的會寫代碼嗎'),
+(60, NULL, 16030, '2021-12-17', NULL, NULL, 1, '駭客就在你旁邊：內網安全攻防滲透你死我活'),
+(61, NULL, 16033, '2021-12-17', NULL, NULL, 1, 'WEB 設計職人必修：UX Design 初學者學習手冊'),
+(62, NULL, 16036, '2021-12-17', NULL, NULL, 1, '極黑駭客專用的OS：Kali Linux2無差別全網滲透'),
+(63, NULL, 16044, '2021-12-17', NULL, NULL, 1, 'iOS 14程式設計實戰: Swift 5.3快速上手的開發技巧200+'),
+(64, NULL, 16035, '2021-12-17', NULL, NULL, 1, '從 0 到 Webpack：學習 Modern Web 專案的建置方式'),
+(65, NULL, 16039, '2021-12-17', NULL, NULL, 1, 'MIS的安全防禦：Linux系統與網路安全'),
+(66, NULL, 16038, '2021-12-17', NULL, NULL, 1, 'ios14 programming fundamentals with swift'),
+(67, NULL, 16037, '2021-12-17', NULL, NULL, 1, '影像辨識實務應用：使用C#'),
+(68, NULL, 16041, '2021-12-17', NULL, NULL, 1, '現代JavaScript實務應用'),
+(69, NULL, 16043, '2021-12-17', NULL, NULL, 1, 'MIS網管達人的工具箱'),
+(70, NULL, 16040, '2021-12-17', NULL, NULL, 1, '網站擷取：使用Python'),
+(72, NULL, 16035, '2021-12-17', NULL, NULL, 0, '從 0 到 Webpack：學習 Modern Web 專案的建置方式'),
+(73, NULL, 16045, '2021-12-17', NULL, NULL, 0, 'Swift學習手冊');
 
 -- --------------------------------------------------------
 
@@ -97,8 +142,7 @@ ALTER TABLE `book_all`
 -- 資料表索引 `book_list`
 --
 ALTER TABLE `book_list`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ISBN` (`ISBN`);
+  ADD PRIMARY KEY (`ISBN`);
 
 --
 -- 資料表索引 `rent_record`
@@ -123,16 +167,10 @@ ALTER TABLE `book_all`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `book_list`
---
-ALTER TABLE `book_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- 使用資料表自動遞增(AUTO_INCREMENT) `rent_record`
 --
 ALTER TABLE `rent_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`
