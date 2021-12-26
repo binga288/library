@@ -2,7 +2,7 @@
 $array = $db->select("rent_record");
 ?>
 
-<div class="container">
+<div id="app" class="container">
     <table class="table">
         <thead>
             <tr>
@@ -10,19 +10,43 @@ $array = $db->select("rent_record");
                 <td>學號</td>
                 <td>借閱日期</td>
                 <td>須歸還日期</td>
-                <td><a href="&test=123">是否歸還 ↓↑</a></td>
+                <td>
+                    <form method="get">
+                        <button type="submit" name="test" value="123">text</button>
+                    </form>
+                </td>
                 <td>書名</td>
             </tr>
         </thead>
-        <?php foreach ($array as $arr) { ?>
-            <tr>
-                <td><?= $arr["id"] ?></td>
-                <td><?= $arr["student_id"] ?></td>
-                <td><?= $arr["rent_date"] ?></td>
-                <td><?= $arr["return_date_limit"] ?></td>
-                <td><?= $arr["type"] == 0 ? "尚未歸還" : "歸還" ?></td>
-                <td><?= $arr["name"] ?></td>
+        <tbody>
+            <tr v-for="arr in array">
+                <td>{arr.id}</td>
             </tr>
-        <?php } ?>
+        </tbody>
     </table>
 </div>
+
+<script>
+    $app = new Vue({
+        el: "#app",
+        data: {
+            array: []
+        },
+        created: () => {
+            fetch("/library_system/api/GetAllRecord.php")
+                .then(res => res.json())
+                .then((res) => {
+                    this.$set();
+                })
+        },
+        mounted: () => {
+            console.log(this.array)
+        },
+        methods: {
+
+        }
+    });
+    (function() {
+
+    })();
+</script>
