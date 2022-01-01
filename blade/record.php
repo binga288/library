@@ -10,17 +10,18 @@ $array = $db->select("rent_record");
                 <td>學號</td>
                 <td>借閱日期</td>
                 <td>須歸還日期</td>
-                <td>
-                    <form method="get">
-                        <button type="submit" name="test" value="123">text</button>
-                    </form>
-                </td>
+                <td v-on:click="recordSort = !recordSort">是否歸還</td>
                 <td>書名</td>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="arr in array">
-                <td>{arr.id}</td>
+            <tr v-for="data in recordData">
+                <td>{{data.id}}</td>
+                <td>{{data.student_id}}</td>
+                <td>{{data.return_date}}</td>
+                <td>{{data.return_date_limit}}</td>
+                <td>{{data.type == "1"?"歸還":"尚未歸還"}}</td>
+                <td>{{data.name}}</td>
             </tr>
         </tbody>
     </table>
@@ -30,23 +31,25 @@ $array = $db->select("rent_record");
     $app = new Vue({
         el: "#app",
         data: {
-            array: []
+            recordData: [],
+            recordSort: false
         },
-        created: () => {
-            fetch("/library_system/api/GetAllRecord.php")
-                .then(res => res.json())
-                .then((res) => {
-                    this.$set();
+        computed: {
+            _recordSort: function(){
+                console.log(recordSort)
+            },
+        },
+        created() {
+            fetch("/library/api/GetAllRecord.php")
+                .then(async res => {
+                    const data = await res.json();
+                    this.recordData = data;
                 })
         },
-        mounted: () => {
-            console.log(this.array)
-        },
         methods: {
+            sortByType() {
 
-        }
+            }
+        },
     });
-    (function() {
-
-    })();
 </script>
