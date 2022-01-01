@@ -2,7 +2,7 @@
 $array = $db->select("rent_record");
 ?>
 
-<div class="container">
+<div id="app" class="container">
     <table class="table">
         <thead>
             <tr>
@@ -10,19 +10,46 @@ $array = $db->select("rent_record");
                 <td>學號</td>
                 <td>借閱日期</td>
                 <td>須歸還日期</td>
-                <td><a href="&test=123">是否歸還 ↓↑</a></td>
+                <td v-on:click="recordSort = !recordSort">是否歸還</td>
                 <td>書名</td>
             </tr>
         </thead>
-        <?php foreach ($array as $arr) { ?>
-            <tr>
-                <td><?= $arr["id"] ?></td>
-                <td><?= $arr["student_id"] ?></td>
-                <td><?= $arr["rent_date"] ?></td>
-                <td><?= $arr["return_date_limit"] ?></td>
-                <td><?= $arr["type"] == 0 ? "尚未歸還" : "歸還" ?></td>
-                <td><?= $arr["name"] ?></td>
+        <tbody>
+            <tr v-for="data in recordData">
+                <td>{{data.id}}</td>
+                <td>{{data.student_id}}</td>
+                <td>{{data.return_date}}</td>
+                <td>{{data.return_date_limit}}</td>
+                <td>{{data.type == "1"?"歸還":"尚未歸還"}}</td>
+                <td>{{data.name}}</td>
             </tr>
-        <?php } ?>
+        </tbody>
     </table>
 </div>
+
+<script>
+    $app = new Vue({
+        el: "#app",
+        data: {
+            recordData: [],
+            recordSort: false
+        },
+        computed: {
+            _recordSort: function(){
+                console.log(recordSort)
+            },
+        },
+        created() {
+            fetch("/library/api/GetAllRecord.php")
+                .then(async res => {
+                    const data = await res.json();
+                    this.recordData = data;
+                })
+        },
+        methods: {
+            sortByType() {
+
+            }
+        },
+    });
+</script>
