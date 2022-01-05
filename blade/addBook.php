@@ -10,12 +10,8 @@ if (isset($_POST["student_id"])) {
     <div class="col-4">
         <form method="post">
             <div class="mb-3">
-                <label for="student_id" class="form-label">學號</label>
-                <input type="text" class="form-control" id="student_id" v-on:input="Handler($event)" v-model="renter_id" name="student_id">
-            </div>
-            <div class="mb-3">
                 <label for="isbn" class="form-label">書籍ISBN</label>
-                <input type="text" class="form-control" id="isbn" name="isbn">
+                <input type="text" v-on:change="getBookData($event)" class="form-control" id="isbn" name="isbn">
             </div>
             <button type="submit" class="btn btn-primary">送出</button>
         </form>
@@ -26,20 +22,25 @@ if (isset($_POST["student_id"])) {
     $app = new Vue({
         el: "#app",
         data: {
-            renter_id: "",
+
         },
         mounted() {
-            let dom = document.querySelector("#student_id");
+            let dom = document.querySelector("#isbn");
             dom.focus();
         },
         methods: {
-            Handler($event) {
-                let len = $event.target.value.length;
-                if (len == 6) {
-                    let dom = document.querySelector("#isbn");
-                    dom.focus();
-                    focus = true;
-                }
+            async getBookData($event){
+                let isbn = $event.target.value;
+                let api = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+                await fetch(api)
+                    .then(res=>{
+                        if(res.ok){
+                            return res.json();
+                        }
+                    })
+                    .then(res=>{
+                        console.log(res.items[0])
+                    })
             }
         }
     })

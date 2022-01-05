@@ -34,12 +34,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?page=return">還書</a>
-                    </li>
+                    </li>                    
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <div class="d-flex">
+                    <a class="btn btn-outline-success" href="?page=addBook">新增藏書</a>
+                </div>
             </div>
         </div>
     </nav>

@@ -10,8 +10,13 @@ $db = new DB();
 if (!isset($_GET["page"])) {
     header("Location: ?page=main");
 }
+$path = "blade/{$_GET["page"]}.php";
 
-include_once("blade/{$_GET["page"]}.php");
+if (file_exists($path)) {
+    include("blade/{$_GET["page"]}.php");
+} else {
+    header("Location: ?page=main");
+}
 ?>
 
 <?php include_once("footer.php"); ?>

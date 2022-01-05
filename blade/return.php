@@ -14,7 +14,7 @@ if (isset($_POST["student_id"])) {
                 <input type="text" class="form-control" id="student_id" v-on:input="Handler($event)" v-model="renter_id" name="student_id">
             </div>
             <div class="mb-3">
-                <label for="book_name" class="form-label">書籍ISBN</label>
+                <label for="isbn" class="form-label">書籍ISBN</label>
                 <input type="text" class="form-control" id="isbn" name="isbn">
             </div>
             <button type="submit" class="btn btn-primary">送出</button>
