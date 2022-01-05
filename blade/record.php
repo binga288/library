@@ -40,7 +40,7 @@ $array = $db->select("rent_record");
             },
         },
         created() {
-            fetch("/library/api/GetAllRecord.php")
+            fetch("/api/GetAllRecord.php")
                 .then(async res => {
                     const data = await res.json();
                     this.recordData = data;
