@@ -12,7 +12,7 @@ class DB
     function __construct()
     {
         if (is_null(self::$db)) {
-            self::$db = mysqli_connect("127.0.0.1", "root", "", "library_db");
+            self::$db = mysqli_connect("127.0.0.1", "root", "", "library_true");
         }
 
         try {

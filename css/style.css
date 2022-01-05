@@ -1,9 +1,14 @@
-tbody tr:hover{
-    cursor: pointer;
-    background-color: gainsboro;
+tbody tr:hover {
+  cursor: pointer;
+  background-color: gainsboro;
 }
 
-thead td:hover{
-    cursor: pointer;
-    
+thead td:hover {
+  cursor: pointer;
+}
+
+.des {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
