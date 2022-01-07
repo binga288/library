@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST["student_id"])) {
-    //$db->insert("rent_record", ["student_id" => $_POST["student_id"], "name" => $_POST["book_name"], "type" => 0]);
+    $db->insert("rent_record", ["student_id" => $_POST["student_id"], "name" => $_POST["book_name"], "type" => 0]);
     header("Location: ?page=rent");
 }
 ?>
