@@ -4,9 +4,14 @@ $db = new DB();
 $data = file_get_contents('php://input');
 $data = json_decode($data);
 
-$db->insert("isbn_list", [
-    "ISBN" => $data->ISBN,
-    "name" => $data->name,
-    "writer" => $data->writer[0],
-    "thumbnail_link" => $data->thumbnail
-]);
+$isbn = $db->select("isbn_list", ["ISBN" => $data->ISBN])->first();
+if (empty($isbn)) {
+    $isbn_id = $db->insert("isbn_list", [
+        "ISBN" => $data->ISBN,
+        "title" => $data->title,
+        "writer" => $data->writer[0],
+        "thumbnail" => $data->thumbnail
+    ]);
+}
+ 
+$db->insert("book_list",["isbn_id"=>$isbn_id]);

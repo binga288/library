@@ -15,3 +15,6 @@ thead td:hover {
   text-overflow: ellipsis;
 }
 
+.thumbnail{
+  height: 70%;
+}

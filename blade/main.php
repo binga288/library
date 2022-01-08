@@ -1,6 +1,6 @@
 <?php
 
-$book_list = $db->select("book_list");
+$book_list = $db->select("isbn_list")->all();
 ?>
 <script>
     $("title").text("所有書籍")
@@ -23,7 +23,7 @@ $book_list = $db->select("book_list");
                         <td>
                             <a href=""><?= $book["ISBN"] ?></a>
                         </td>
-                        <td><?= $book["name"] ?></td>
+                        <td><?= $book["title"] ?></td>
                         <td><?= $book["writer"] ?></td>
                     </tr>
                 <?php } ?>

@@ -1,7 +1,30 @@
 <?php
 if (isset($_POST["student_id"])) {
-    $db->insert("rent_record", ["student_id" => $_POST["student_id"], "name" => $_POST["book_name"], "type" => 0]);
-    header("Location: ?page=rent");
+    $renter = $db->select("renter", ["student_id" => $_POST["student_id"]])->first();
+
+    if (empty($renter)) {
+        $renter = $db->insert("renter", ["student_id" => $_POST["student_id"]]);
+    } else {
+        $renter = $renter["id"];
+    }
+
+    $isbn = $db->select("isbn_list", ["isbn" => $_POST["isbn"]])->first();
+    if (empty($isbn)) {
+        echo "<script>alert('館內無此藏書');location.href = '';</script>";
+    } else {
+        $books = $db->select("book_list", ["isbn_id" => $isbn["id"], "type" => 1])->first();
+
+        if (empty($books))
+            echo "<script>alert('書籍皆被借走');location.href = '';</script>";
+
+        $date = new DateTime();
+        $date->modify("+30 day");
+        $date_str = $date->format("Y/m/d");
+        $rent_id = $db->insert("rent_record", ["renter_id" => $renter, "book_id" => $books["id"], "return_date_limit" => $date_str]);
+
+        $db->update("book_list", ["last_rent_id" => $rent_id, "type" => 0], ["id" => $books["id"]]);
+        echo "<script>alert('需歸還日期{$date_str}');location.href = '';</script>";
+    }
 }
 ?>
 

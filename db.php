@@ -1,18 +1,12 @@
 <?php
-
-if (!isset($_SESSION)) {
-    session_start();
-}
-
 class DB
 {
-
     private static $db = null;
 
     function __construct()
     {
         if (is_null(self::$db)) {
-            self::$db = mysqli_connect("127.0.0.1", "root", "", "library_true");
+            self::$db = mysqli_connect("127.0.0.1", "root", "", "library");
         }
 
         try {
@@ -54,17 +48,8 @@ class DB
     public function select($table, $where = "1", $o = "AND", $other = "", $LIKE = " = ")
     {
         $sql = self::$db->query("SELECT * FROM `$table`WHERE " . $this->exarray($where, $o, $LIKE) . " $other");
-        $data = [];
-        while ($r = $sql->fetch_array()) {
-            $data[] = $r;
-        }
-        return $data;
-    }
-
-    public function select_once($table, $where = "1", $o = "AND", $other = "", $LIKE = " = ")
-    {
-        $sql = self::$db->query("SELECT * FROM `$table` WHERE " . $this->exarray($where, $o, $LIKE) . " $other");
-        return $sql->fetch_array();
+        $this->sql = $sql;
+        return $this;
     }
 
     public function insert($table, $data)
@@ -84,4 +69,32 @@ class DB
         self::$db->query("DELETE FROM `$rows` WHERE" . $this->exarray($where, $o));
         return false;
     }
+
+    public function query($row)
+    {
+        $this->sql = self::$db->query($row);
+        return $this;
+    }
+
+    public function all()
+    {
+        $data = [];
+        while ($r = $this->sql->fetch_array()) {
+            $data[] = $r;
+        }
+        return $data;
+    }
+
+    public function first()
+    {
+        return $this->sql->fetch_array();
+    }
+}
+
+function dd($data)
+{
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
+    die();
 }

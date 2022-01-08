@@ -1,65 +1,30 @@
 <div id="app" class="container">
-    <br>
-    <div class="col-4">
-        <div class="mb-3">
-            <label for="isbn" class="form-label">書籍ISBN</label>
-            <input v-model="isbn" type="text" @input="getBookData($event)" class="form-control" id="isbn" name="isbn">
-        </div>
-        <!-- 掃描輸入 -->
-        <button id="post" type="button" @click="scanSend" :disabled="!getSuccess" class="btn btn-primary">
-            送出
-        </button>
-
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            手動輸入
-        </button>
+    <div class="row">
+        <div v-if="failCheck" class="alert alert-danger" :class role="alert">{{failMes}}</div>
     </div>
 
-    <div v-if="getSuccess" id="ISBNdata" class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-            <div class="col-md-4 text-center">
-                <img :src="href != undefined ? href : defaultImg" class="img-fluid rounded-start">
+    <div class="row mt-4">
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="isbn" class="form-label">書籍ISBN</label>
+                <input id="isbn" class="form-control" v-model="isbn" type="text" @input="getBookData($event)">
             </div>
-
-            <div class="col-md-8 d-flex flex-column">
-                <div class="card-body justify-content-center">
-                    <h5 class="card-title">{{bookName}}</h5>
-                    <p class="card-text des">{{description}}</p>
-                </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">標題</label>
+                <input class="form-control" id="title" v-model="title" type="text">
             </div>
+            <div class="mb-3">
+                <label for="authors" class="form-label">作者</label>
+                <input class="form-control" id="authors" v-model="authors" type="text">
+            </div>
+            <!-- 掃描輸入 -->
+            <button id="post" type="button" @click="addBook" :disabled="!getSuccess" class="btn btn-primary">
+                送出
+            </button>
         </div>
-    </div>
-    <div v-if="failCheck" class="alert alert-danger" :class role="alert">{{failMes}}</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">手動輸入書籍</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="ISBN" class="col-form-label">ISBN:</label>
-                            <input type="text" v-model="isbn" class="form-control" id="ISBN">
-                        </div>
-                        <div class="mb-3">
-                            <label for="book-name" class="col-form-label">書名:</label>
-                            <input type="text" v-model="bookName" class="form-control" id="book-name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="acthor" class="col-form-label">作者:</label>
-                            <input type="text" v-model="authors" class="form-control" id="acthor">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                    <button type="button" class="btn btn-primary">送出</button>
-                </div>
-            </div>
+        <div class="col-3 d-flex flex-row-reverse">
+            <img :src="href != undefined ? href : defaultImg" class="thumbnail rounded-start">
         </div>
     </div>
 </div>
@@ -68,18 +33,17 @@
     $app = new Vue({
         el: "#app",
         data: {
-            isbn:"",
+            isbn: "",
             getSuccess: false,
-            href: "",
-            bookName: "",
-            description: "",
+            title: "",
             authors: "",
+            href: null,
 
             failCheck: false,
             failMes: "",
 
             //預設縮圖連結
-            defaultImg: "../source/img/default.jpg"
+            defaultImg: "source/img/default.jpg"
         },
         mounted() {
             let dom = document.querySelector("#isbn");
@@ -106,15 +70,12 @@
                             this.apiFail("查詢失敗:無此書籍");
                             return;
                         }
-                        this.failMes = "";
-                        this.failCheck = false;
-                        this.getSuccess = false;
+                        this.apiSuccess();
 
                         const data = res.items[0];
-                        this.getSuccess = true;
+                        console.log(data);
                         this.href = data.volumeInfo.imageLinks?.thumbnail;
-                        this.bookName = data.volumeInfo.title;
-                        this.description = data.volumeInfo.description;
+                        this.title = data.volumeInfo.title;
                         this.authors = data.volumeInfo.authors;
                     })
                     .catch(res => {
@@ -127,16 +88,21 @@
                 this.failCheck = true;
                 this.getSuccess = false;
             },
+            apiSuccess() {
+                this.failMes = "";
+                this.failCheck = false;
+                this.getSuccess = true;
+            },
             sendPost() {
                 let sendBody = {
-                    ISBN: this.isbn * 1,
-                    name: this.bookName,
+                    ISBN: this.isbn,
+                    title: this.title,
                     writer: this.authors,
-                    thumbnail: this.href
+                    thumbnail: this.href,
                 };
 
                 console.log(sendBody)
-                fetch("/api/PostBookData.php", {
+                fetch("api/PostBookData.php", {
                     method: 'POST',
                     body: JSON.stringify(sendBody),
                     headers: {
@@ -144,10 +110,18 @@
                     },
                 })
             },
-            scanSend() {
-                sendPost();
+            reset() {
+                this.isbn = "";
+                this.getSuccess = false;
+                this.href = null;
+                this.title = "";
+                this.authors = "";
+            },
+            addBook() {
+                this.sendPost();
                 let dom = document.querySelector("#isbn");
                 dom.focus();
+                this.reset();
             }
         }
     })

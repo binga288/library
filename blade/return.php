@@ -1,7 +1,23 @@
 <?php
 if (isset($_POST["student_id"])) {
-    //$db->insert("rent_record", ["student_id" => $_POST["student_id"], "name" => $_POST["book_name"], "type" => 0]);
-    header("Location: ?page=rent");
+    $student = $_POST["student_id"];
+    $isbn = $_POST["isbn"];
+
+    $sql = "SELECT `rent_record`.* FROM `rent_record` 
+        join `renter` on `rent_record`.`renter_id` = `renter`.`id` 
+        join `book_list` on `rent_record`.`book_id` = `book_list`.`id` 
+        join `isbn_list` on `book_list`.`isbn_id` = `isbn_list`.`id` 
+        WHERE `isbn_list`.`ISBN` = '{$isbn}' AND `renter`.`student_id` = '{$student}' AND `rent_record`.`type` = 0";
+
+    $query = $db->query($sql)->first();
+    if (is_null($query))
+        echo "<script>alert('此學生尚未借書或無此書籍');location.href = '';</script>";
+    else {
+        $db->update("rent_record", ["type" => 1], ["id" => $query["id"]]);
+        $db->update("book_list", ["type" => 1], ["id" => $query["book_id"]]);
+
+        header("Location: ?page=return");
+    }
 }
 ?>
 
