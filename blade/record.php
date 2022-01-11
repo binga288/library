@@ -17,11 +17,11 @@ $array = $db->select("rent_record");
         <tbody>
             <tr v-for="data in recordData">
                 <td>{{data.id}}</td>
-                <td>{{data.student_id}}</td>
+                <td>{{data.renter}}</td>
                 <td>{{data.return_date}}</td>
                 <td>{{data.return_date_limit}}</td>
                 <td>{{data.type == "1"?"歸還":"尚未歸還"}}</td>
-                <td>{{data.name}}</td>
+                <td>{{data.title}}</td>
             </tr>
         </tbody>
     </table>
@@ -44,6 +44,7 @@ $array = $db->select("rent_record");
                 .then(async res => {
                     const data = await res.json();
                     this.recordData = data;
+                    console.log(data)
                 })
         },
         methods: {
