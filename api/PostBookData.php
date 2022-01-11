@@ -13,5 +13,11 @@ if (empty($isbn)) {
         "thumbnail" => $data->thumbnail
     ]);
 }
- 
-$db->insert("book_list",["isbn_id"=>$isbn_id]);
+
+
+try {
+    $id = $db->insert("book_list", ["isbn_id" => $isbn_id]);
+    header("Status: 200");
+} catch (Throwable $th) {
+    header("Status: 500");
+}

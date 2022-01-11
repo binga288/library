@@ -1,6 +1,15 @@
 <div id="app" class="container">
-    <div class="row">
-        <div v-if="failCheck" class="alert alert-danger" :class role="alert">{{failMes}}</div>
+    <br>
+    <div class="row" v-if="failCheck">
+        <div class="alert alert-danger" role="alert">{{failMes}}</div>
+    </div>
+
+    <div class="row" v-if="postStatus == true">
+        <div class="alert alert-success" role="alert">新增成功</div>
+    </div>
+
+    <div class="row" v-if="postStatus == false">
+        <div class="alert alert-danger" role="alert">新增失敗</div>
     </div>
 
     <div class="row mt-4">
@@ -43,7 +52,8 @@
             failMes: "",
 
             //預設縮圖連結
-            defaultImg: "source/img/default.jpg"
+            defaultImg: "source/img/default.jpg",
+            postStatus: null
         },
         mounted() {
             let dom = document.querySelector("#isbn");
@@ -57,6 +67,8 @@
         },
         methods: {
             async getBookData($event) {
+                this.reset();
+
                 let isbn = $event.target.value;
                 if (isbn.length != 13)
                     return;
@@ -103,12 +115,15 @@
 
                 console.log(sendBody)
                 fetch("api/PostBookData.php", {
-                    method: 'POST',
-                    body: JSON.stringify(sendBody),
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                })
+                        method: 'POST',
+                        body: JSON.stringify(sendBody),
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                    })
+                    .then(res => {
+                        this.postStatus = res.status == 200 ? true : false;
+                    })
             },
             reset() {
                 this.isbn = "";
@@ -116,6 +131,7 @@
                 this.href = null;
                 this.title = "";
                 this.authors = "";
+                this.postStatus = null;
             },
             addBook() {
                 this.sendPost();
