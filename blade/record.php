@@ -1,7 +1,8 @@
 <?php
 $sql = "SELECT * FROM `rent_record` 
 INNER JOIN `renter` ON `renter`.`id` = `rent_record`.`renter_id`
-INNER JOIN `isbn_list` ON `isbn_list`.`id` = `rent_record`.`book_id`
+INNER JOIN `book_list` ON `book_list`.`id` = `rent_record`.`book_id`
+INNER JOIN `isbn_list` ON `isbn_list`.`id` = `book_list`.`isbn_id`
 ";
 
 $where = [];
