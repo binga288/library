@@ -15,8 +15,8 @@
     <div class="row mt-4">
         <div class="col-4">
             <div class="mb-3">
-                <label for="isbn" class="form-label">書籍ISBN</label>
-                <input id="isbn" class="form-control" v-model="isbn" type="text" @input="getBookData($event)">
+                <label for="ISBN" class="form-label">書籍ISBN</label>
+                <input id="ISBN" class="form-control" v-model="isbn" type="text" @input="getBookData($event)">
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">標題</label>
@@ -56,7 +56,7 @@
             postStatus: null
         },
         mounted() {
-            let dom = document.querySelector("#isbn");
+            let dom = document.querySelector("#ISBN");
             dom.focus();
 
             document.addEventListener('keypress', function() {
@@ -67,11 +67,10 @@
         },
         methods: {
             async getBookData($event) {
-                this.reset();
-
                 let isbn = $event.target.value;
                 if (isbn.length != 13)
                     return;
+
                 let api = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
                 console.log(api)
 
@@ -135,7 +134,7 @@
             },
             addBook() {
                 this.sendPost();
-                let dom = document.querySelector("#isbn");
+                let dom = document.querySelector("#ISBN");
                 dom.focus();
                 this.reset();
             }
