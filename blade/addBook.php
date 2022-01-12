@@ -27,7 +27,7 @@
                 <input class="form-control" id="authors" v-model="authors" type="text">
             </div>
             <!-- 掃描輸入 -->
-            <button id="post" type="button" @click="addBook" :disabled="!getSuccess" class="btn btn-primary">
+            <button id="post" type="button" @click="addBook" class="btn btn-primary">
                 送出
             </button>
         </div>
