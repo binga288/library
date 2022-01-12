@@ -10,7 +10,6 @@ $book_list = $db->select("isbn_list")->all();
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">ISBN</th>
                     <th scope="col">書名</th>
                     <th scope="col">作者</th>
@@ -19,9 +18,8 @@ $book_list = $db->select("isbn_list")->all();
             <tbody>
                 <?php foreach ($book_list as $book) { ?>
                     <tr>
-                        <th scope="row">1</th>
                         <td>
-                            <a href=""><?= $book["ISBN"] ?></a>
+                            <?= $book["ISBN"] ?>
                         </td>
                         <td><?= $book["title"] ?></td>
                         <td><?= $book["writer"] ?></td>
