@@ -72,7 +72,6 @@
                     return;
 
                 let api = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-                console.log(api)
 
                 await fetch(api)
                     .then(res => res.json())
@@ -84,7 +83,6 @@
                         this.apiSuccess();
 
                         const data = res.items[0];
-                        console.log(data);
                         this.href = data.volumeInfo.imageLinks?.thumbnail;
                         this.title = data.volumeInfo.title;
                         this.authors = data.volumeInfo.authors;
