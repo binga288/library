@@ -1,8 +1,6 @@
-
-
-tbody tr:hover {
-  cursor: pointer;
-  background-color: gainsboro;
+body {
+  font-family: "Noto Sans CJK TC", "Microsoft JhengHei", PingFang, STHeiti,
+    sans-serif, serif !important;
 }
 
 thead td:hover {
@@ -15,6 +13,6 @@ thead td:hover {
   text-overflow: ellipsis;
 }
 
-.thumbnail{
+.thumbnail {
   height: 70%;
 }

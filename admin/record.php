@@ -1,4 +1,6 @@
 <?php
+require("../db.php");
+$db = new DB();
 $sql = "SELECT * FROM `rent_record` 
 INNER JOIN `renter` ON `renter`.`id` = `rent_record`.`renter_id`
 INNER JOIN `book_list` ON `book_list`.`id` = `rent_record`.`book_id`
@@ -19,9 +21,12 @@ $array = $db->query($sql)->all();
 
 
 ?>
+<?php require_once("../header.php") ?>
 
 <div id="app" class="container">
-
+    <div class="row mb-2">
+        <h2>還書</h2>
+    </div>
     <form method="GET" class="my-3">
         <input type="hidden" name="page" value="record">
         <div class="row mb-3">
@@ -41,8 +46,8 @@ $array = $db->query($sql)->all();
         <button type="submit" class=" btn btn-primary">查詢</button>
     </form>
 
-    <div class="row">
-        <table class="table table-borderless">
+    <div class="row bg-white p-3">
+        <table class="table">
             <thead>
                 <tr>
                     <td>學號</td>
@@ -53,14 +58,6 @@ $array = $db->query($sql)->all();
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr v-for="data in recordData">
-                    <td>{{data.renter}}</td>
-                    <td>{{data.rent_date}}</td>
-                    <td>{{data.return_date_limit}}</td>
-                    <td>{{data.type == "1"?"歸還":"尚未歸還"}}</td>
-                    <td>{{data.title}}</td>
-                </tr> -->
-
                 <?php foreach ($array as $data) { ?>
                     <tr>
                         <td><?= $data["student_id"] ?></td>
@@ -75,25 +72,4 @@ $array = $db->query($sql)->all();
     </div>
 </div>
 
-<script>
-    $app = new Vue({
-        el: "#app",
-        data: {
-            recordData: [],
-            recordSort: false
-        },
-        created() {
-            fetch("/api/GetAllRecord.php")
-                .then(async res => {
-                    const data = await res.json();
-                    this.recordData = data;
-                    console.log(data)
-                })
-        },
-        methods: {
-            sortByType() {
-
-            }
-        },
-    });
-</script>
+<?php require_once("../footer.php") ?>

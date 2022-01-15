@@ -20,9 +20,12 @@ if (isset($_POST["student_id"])) {
     }
 }
 ?>
+<?php require_once("../header.php") ?>
 
 <div id="app" class="container">
-    <br>
+    <div class="row mb-2">
+        <h2>還書</h2>
+    </div>
     <div class="col-4">
         <form method="post">
             <div class="mb-3">
@@ -60,3 +63,5 @@ if (isset($_POST["student_id"])) {
         }
     })
 </script>
+
+<?php require_once("../footer.php") ?>

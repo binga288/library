@@ -1,5 +1,8 @@
+<?php require("../header.php") ?>
 <div id="app" class="container">
-    <br>
+    <div class="row mb-2">
+        <h2>新增藏書</h2>
+    </div>
     <div class="row" v-if="failCheck">
         <div class="alert alert-danger" role="alert">{{failMes}}</div>
     </div>
@@ -37,6 +40,7 @@
         </div>
     </div>
 </div>
+<?php require("../footer.php") ?>
 
 <script>
     $app = new Vue({
@@ -52,7 +56,7 @@
             failMes: "",
 
             //預設縮圖連結
-            defaultImg: "source/img/default.jpg",
+            defaultImg: "../assets/source/img/default.jpg",
             postStatus: null
         },
         mounted() {
@@ -111,7 +115,7 @@
                 };
 
                 console.log(sendBody)
-                fetch("api/PostBookData.php", {
+                fetch("../api/PostBookData.php", {
                         method: 'POST',
                         body: JSON.stringify(sendBody),
                         headers: {

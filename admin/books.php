@@ -1,12 +1,15 @@
 <?php
-
+require_once("../db.php");
+$db = new DB();
 $book_list = $db->select("isbn_list")->all();
 ?>
-<script>
-    $("title").text("所有書籍")
-</script>
+
+<?php require_once("../header.php") ?>
 <div class="container">
-    <div class="row">
+    <div class="row mb-2">
+        <h2>藏書一覽</h2>
+    </div>
+    <div class="row bg-white p-3">
         <table class="table">
             <thead>
                 <tr>
@@ -30,3 +33,4 @@ $book_list = $db->select("isbn_list")->all();
         </table>
     </div>
 </div>
+<?php require_once("../footer.php") ?>
