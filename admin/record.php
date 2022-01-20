@@ -1,6 +1,7 @@
 <?php
 require("../db.php");
 $db = new DB();
+
 $sql = "SELECT *,`rent_record`.`type` as `rent_type` FROM `rent_record` 
 INNER JOIN `renter` ON `renter`.`id` = `rent_record`.`renter_id`
 INNER JOIN `book_list` ON `book_list`.`id` = `rent_record`.`book_id`
