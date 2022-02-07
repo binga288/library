@@ -19,6 +19,7 @@ if (isset($_POST["student_id"])) {
         header("Location: ?page=return");
     }
 }
+$pre = "return";
 ?>
 <?php require_once("../header.php") ?>
 

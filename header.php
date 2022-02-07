@@ -1,5 +1,5 @@
 <?php
-$link = "http://$_SERVER[HTTP_HOST]/";
+$link = "http://{$_SERVER["HTTP_HOST"]}/";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +84,7 @@ $link = "http://$_SERVER[HTTP_HOST]/";
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active" aria-current="page">
+                            <a href="/" class="nav-link text-white <?= $pre == "index" ? "active" : "" ?>" aria-current="page">
                                 <svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home" />
                                 </svg>
@@ -92,15 +92,7 @@ $link = "http://$_SERVER[HTTP_HOST]/";
                             </a>
                         </li>
                         <li>
-                            <a href="<?= $link ?>admin/books.php" class="nav-link text-white">
-                                <svg class="bi me-2" width="16" height="16">
-                                    <use xlink:href="#speedometer2" />
-                                </svg>
-                                現有書籍
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= $link ?>admin/books.php" class="nav-link text-white">
+                            <a href="/admin/books.php" class="nav-link text-white <?= $pre == "books" ? "active" : "" ?>">
                                 <svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#table" />
                                 </svg>
@@ -108,7 +100,7 @@ $link = "http://$_SERVER[HTTP_HOST]/";
                             </a>
                         </li>
                         <li>
-                            <a href="<?= $link ?>admin/record.php" class="nav-link text-white">
+                            <a href="/admin/record.php" class="nav-link text-white <?= $pre == "record" ? "active" : "" ?>">
                                 <svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#grid" />
                                 </svg>
@@ -116,23 +108,23 @@ $link = "http://$_SERVER[HTTP_HOST]/";
                             </a>
                         </li>
                         <li>
-                            <a href="<?= $link ?>admin/rent.php" class="nav-link text-white">
-                                <svg class="bi me-2" width="16" height="16">
-                                    <use xlink:href="#people-circle" />
-                                </svg>
-                                還書
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= $link ?>admin/return.php" class="nav-link text-white">
+                            <a href="/admin/rent.php" class="nav-link text-white <?= $pre == "rent" ? "active" : "" ?>">
                                 <svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#people-circle" />
                                 </svg>
                                 借書
                             </a>
                         </li>
+                        <li>
+                            <a href="/admin/return.php" class="nav-link text-white <?= $pre == "return" ? "active" : "" ?>">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#people-circle" />
+                                </svg>
+                                還書
+                            </a>
+                        </li>
                         <li class="text-center mt-4">
-                            <a href="<?= $link ?>admin/add.php" class="btn btn-outline-success w-50">
+                            <a href="/admin/add.php" class="btn btn-outline-success w-50">
                                 新增藏書
                             </a>
                         </li>

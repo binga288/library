@@ -2,6 +2,7 @@
 require_once("../db.php");
 $db = new DB();
 $book_list = $db->select("isbn_list")->all();
+$pre = "books";
 ?>
 
 <?php require_once("../header.php") ?>

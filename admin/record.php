@@ -19,13 +19,13 @@ if (isset($_GET["id"]) || isset($_GET["date"])) {
 $sql .= join(" AND ", $where);
 $array = $db->query($sql)->all();
 
-
+$pre = "record";
 ?>
 <?php require_once("../header.php") ?>
 
 <div id="app" class="container">
     <div class="row mb-2">
-        <h2>還書</h2>
+        <h2>借閱紀錄</h2>
     </div>
     <form method="GET" class="my-3">
         <input type="hidden" name="page" value="record">

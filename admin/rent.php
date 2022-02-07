@@ -26,6 +26,8 @@ if (isset($_POST["student_id"])) {
         echo "<script>alert('需歸還日期{$date_str}');location.href = '';</script>";
     }
 }
+
+$pre = "rent";
 ?>
 <?php require_once("../header.php") ?>
 <div id="app" class="container">
