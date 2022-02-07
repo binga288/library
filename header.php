@@ -119,7 +119,7 @@ $link = "http://{$_SERVER["HTTP_HOST"]}/";
                             <a href="/admin/return.php" class="nav-link text-white <?= $pre == "return" ? "active" : "" ?>">
                                 <svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#people-circle" />
-                                </svg>
+                                </svg>                                
                                 還書
                             </a>
                         </li>

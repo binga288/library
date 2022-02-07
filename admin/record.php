@@ -1,7 +1,8 @@
 <?php
 require("../db.php");
 $db = new DB();
-$sql = "SELECT * FROM `rent_record` 
+
+$sql = "SELECT *,`rent_record`.`type` as `rent_type` FROM `rent_record` 
 INNER JOIN `renter` ON `renter`.`id` = `rent_record`.`renter_id`
 INNER JOIN `book_list` ON `book_list`.`id` = `rent_record`.`book_id`
 INNER JOIN `isbn_list` ON `isbn_list`.`id` = `book_list`.`isbn_id`
@@ -63,7 +64,7 @@ $pre = "record";
                         <td><?= $data["student_id"] ?></td>
                         <td><?= $data["rent_date"] ?></td>
                         <td><?= $data["return_date_limit"] ?></td>
-                        <td><?= $data["type"] == "1" ? "歸還" : "尚未歸還" ?></td>
+                        <td><?= $data["rent_type"] == "1" ? "歸還" : "尚未歸還" ?></td>
                         <td><?= $data["title"] ?></td>
                     </tr>
                 <?php } ?>

@@ -1,4 +1,7 @@
 <?php
+require_once("../db.php");
+$db = new DB();
+
 if (isset($_POST["student_id"])) {
     $renter = $db->select("renter", ["student_id" => $_POST["student_id"]])->first();
 

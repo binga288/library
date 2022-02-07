@@ -1,4 +1,7 @@
 <?php
+require_once("../db.php");
+$db = new DB();
+
 if (isset($_POST["student_id"])) {
     $student = $_POST["student_id"];
     $isbn = $_POST["isbn"];
