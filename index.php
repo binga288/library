@@ -1,7 +1,8 @@
 <?php
 $pre = "index";
+header("location: /admin/books.php");
 include_once("header.php");
 ?>
-<h1>Test</h1>
+
 
 <?php include_once("footer.php"); ?>

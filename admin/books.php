@@ -2,7 +2,7 @@
 require_once("../db.php");
 $db = new DB();
 $book_list = $db->select("isbn_list")->all();
-$pre = "books";
+$pre = ["link"=>"books","name"=>"藏書一覽"];
 ?>
 
 <?php require_once("../header.php") ?>
@@ -33,5 +33,6 @@ $pre = "books";
             </tbody>
         </table>
     </div>
+    <i class="bi bi-journal-plus"></i>
 </div>
 <?php require_once("../footer.php") ?>

@@ -30,7 +30,7 @@ if (isset($_POST["student_id"])) {
     }
 }
 
-$pre = "rent";
+$pre = ["link"=>"rent","name"=>"借書"];
 ?>
 <?php require_once("../header.php") ?>
 <div id="app" class="container">

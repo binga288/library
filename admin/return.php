@@ -22,7 +22,7 @@ if (isset($_POST["student_id"])) {
         header("Location: ?page=return");
     }
 }
-$pre = "return";
+$pre = ["link"=>"return","name"=>"還書"];
 ?>
 <?php require_once("../header.php") ?>
 

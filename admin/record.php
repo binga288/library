@@ -20,7 +20,7 @@ if (isset($_GET["id"]) || isset($_GET["date"])) {
 $sql .= join(" AND ", $where);
 $array = $db->query($sql)->all();
 
-$pre = "record";
+$pre = ["link"=>"record","name"=>"借閱紀錄"];
 ?>
 <?php require_once("../header.php") ?>
 
