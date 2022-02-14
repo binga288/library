@@ -40,7 +40,7 @@ $pre = ["link"=>"rent","name"=>"借書"];
     <div class="col-4">
         <form method="post">
             <div class="mb-3">
-                <label for="student_id" class="form-label">學號</label>
+                <label for="student_id" class="form-label">借書學號</label>
                 <input type="text" class="form-control" id="student_id" v-on:input="Handler($event)" v-model="renter_id" name="student_id">
             </div>
             <div class="mb-3">
